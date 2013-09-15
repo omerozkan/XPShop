@@ -44,4 +44,19 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	
+	<build>
+    <sourceDirectory>.</sourceDirectory>
+    <plugins>
+        <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+        <includes>
+            <include>src/main/java/**/*.java</include>
+        </includes>
+        </configuration>
+        </plugin>
+    </plugins>
+</build>
 </project>

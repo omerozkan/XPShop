@@ -1,4 +1,4 @@
-package info.ozkan.test.xpshop.presentation.login;
+package info.ozkan.test.xpshop.business.login;
 
 public enum StatusCodes {
 

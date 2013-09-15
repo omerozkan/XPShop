@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import info.ozkan.test.xpshop.business.login.LoginManager;
 import info.ozkan.test.xpshop.business.login.LoginResult;
+import info.ozkan.test.xpshop.business.login.StatusCodes;
 
 import org.junit.Before;
 import org.junit.Test;

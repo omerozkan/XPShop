@@ -1,7 +1,7 @@
 package info.ozkan.test.xpshop.business.login;
 
 import info.ozkan.test.xpshop.domain.Customer;
-import info.ozkan.test.xpshop.presentation.login.StatusCodes;
+
 
 public class LoginResult {
 	private StatusCodes status;

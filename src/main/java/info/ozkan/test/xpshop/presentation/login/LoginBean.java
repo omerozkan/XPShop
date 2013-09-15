@@ -2,6 +2,7 @@ package info.ozkan.test.xpshop.presentation.login;
 
 import info.ozkan.test.xpshop.business.login.LoginManager;
 import info.ozkan.test.xpshop.business.login.LoginResult;
+import info.ozkan.test.xpshop.business.login.StatusCodes;
 
 import javax.faces.bean.ManagedBean;
 
