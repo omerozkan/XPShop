@@ -10,26 +10,46 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class LoginManagerImplTest {
-	
+	/**
+	 * Test edilen sınıfın nesnesi
+	 */
 	private LoginManagerImpl manager = new LoginManagerImpl();
+	/**
+	 * Dao mock nesnesi
+	 */
 	private LoginDao dao = mock(LoginDao.class);
+	/**
+	 * Testlerde kullanılan doğru eposta adresi
+	 */
 	private String email = "test_email";
+	/**
+	 * Testlerde kullanılan doğru parola
+	 */
 	private String password = "test_password";
+	/**
+	 * LoginDao dan dönecek olan sonuç nesnesi
+	 */
 	private LoginDaoResult daoResult = new LoginDaoResult();
-	
+
 	@Before
 	public void setUp() throws Exception {
 		manager.setLoginDao(dao);
 	}
-	
+	/**
+	 * dao mock nesnesinin hangi sonucu
+	 * döndereceğini belirler
+	 * @param daoResult
+	 */
 	private void returnDaoResult(LoginDaoResult daoResult) {
 		when(dao.findUser(email, password)).thenReturn(daoResult);
 	}
-	
+    /**
+     * metodların çağrıldığından emin ol
+     */
 	private void verifyMockMethods() {
 		verify(dao).findUser(email, password);
 	}
-	
+
 	/**
 	 * Kullanıcı tarafından girilen eposta adresi
 	 * geçersizdir. Bilgibankasında bu eposta
@@ -46,7 +66,6 @@ public class LoginManagerImplTest {
 		LoginResult result = manager.login(email, password);
 		assertEquals(StatusCodes.EMAIL_INVALID, result.getStatus());
 		verifyMockMethods();
-		
 	}
 
 	/**
@@ -66,7 +85,7 @@ public class LoginManagerImplTest {
 	    assertEquals(StatusCodes.PASSWORD_INVALID, result.getStatus());
 	    verifyMockMethods();
     }
-	
+
 	/**
 	 * Kullanıcı tarafından girilen eposta
 	 * adresi geçerlidir. Bilgibankasında

@@ -17,34 +17,59 @@ import org.junit.Before;
 import org.junit.Test;
 
 public class LoginDaoImplTest {
+    /**
+     * Testlerde kullanılan eposta adresi
+     */
 	private String email = "test_email";
-	private String password = "test_password";
+	/**
+	 * Testlerde kullanılan parola
+	 */
+    private String password = "test_password";
+    /**
+	 * Query mock nesnesi
+	 */
 	private Query query = mock(Query.class);
+    /**
+	 * EntitiyManager mock nesnesi
+	 */
 	private EntityManager em = mock(EntityManager.class);
+    /**
+	 * Test edilen LoginDaoImpl sınıfı
+	 */
 	private LoginDaoImpl dao = new LoginDaoImpl();
+    /**
+	 * EntitiyManager a gönderilmesi gereken sorgu
+	 */
 	private String jql = "from Customer c where c.email = :email";
-	
-	
-	
-	
+
+	/**
+	 * EntityManager injection
+	 */
 	@Before
 	public void setUp() {
 	    dao.setEm(em);
     }
-	
+	/**
+	 * Mock metodları tanımlar
+	 * @param list sorgudan sonra dönecek olan liste
+	 */
 	private void configureMockMethods(List<Customer> list) {
-	    when(query.setParameter(contains("email"), contains(email))).thenReturn(query);
+	    when(query.setParameter(contains("email"), contains(email)))
+	        .thenReturn(query);
 		when(query.getResultList()).thenReturn(list);
 		when(em.createQuery(jql)).thenReturn(query);
     }
 	
+	/**
+	 * Mock metodların çağrıldığından emin olunur
+	 */
 	private void verifyMockMethods()
 	{
 		verify(query).setParameter(contains("email"), contains(email));
 		verify(query).getResultList();
 		verify(em).createQuery(jql);
 	}
-	
+
 	/**
 	 * Kullanıcı tarafından girilen eposta adresi
 	 * geçersizdir. Bilgibankasında bu eposta
@@ -54,20 +79,17 @@ public class LoginDaoImplTest {
 	 */
 	@Test
     public void emailInvalid() throws Exception {
-	    
 		configureMockMethods(null);
 		LoginDaoResult result = dao.findUser(email, password);
 		assertEquals(StatusCodes.EMAIL_INVALID, result.getStatus());
 		verifyMockMethods();
 	}
 
-	
-	
 	/**
 	 * Kullanıcı tarafından girilen eposta
-	 * adresi geçerlidir. Bilgibankasında bu 
+     * adresi geçerlidir. Bilgibankasında bu
 	 * eposta adresi ile ilişkili bir hesap bulunur.
-	 * Girilen şifre geçersizdir. PASSWORD_INVALID status 
+     * Girilen şifre geçersizdir. PASSWORD_INVALID status
 	 * kodu oluşturur.
 	 * @throws Exception
 	 */
@@ -85,7 +107,7 @@ public class LoginDaoImplTest {
     }
 	/**
 	 * Kullanıcı tarafından girilen eposta
-	 * ve şifre geçerliidir. 
+     * ve şifre geçerliidir.
 	 * LOGIN_SUCCESSFULL statüs kodu oluşturulur
 	 * @throws Exception
 	 */

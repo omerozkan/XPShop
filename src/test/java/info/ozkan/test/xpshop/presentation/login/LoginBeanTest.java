@@ -20,9 +20,9 @@ import org.junit.Test;
  */
 public class LoginBeanTest {
 
-	/**
-	 * Kullanıcı hoş geldiniz sayfası
-	 */
+    /**
+     * Kullanıcı hoş geldiniz sayfası
+     */
     private static final String WELCOME_PAGE = "welcome";
 
     /**
@@ -53,27 +53,34 @@ public class LoginBeanTest {
      * Mock nesnesini oluşturur
      */
     @Before
-	public void setUp() {
-		loginManager = mock(LoginManager.class);
-		loginBean.setManager(loginManager);
-	}
+    public void setUp() {
+        loginManager = mock(LoginManager.class);
+        loginBean.setManager(loginManager);
+    }
 
-	/**
-	 * Kullanıcı eposta adresini ve parolasını girmeden
-	 * login butonuna tıklar. Sistem şu hata mesajını verir:
-	 * Lütfen eposta adresinizi ve parolanızı giriniz!
-	 * @throws Exception
-	 */
-	@Test
-	public void loginUsernameAndPasswordEmpty() throws Exception {
-		loginBean.setEmail("");
-		loginBean.setPassword("");
-		assertFailLogin();
-		assertEquals(LoginBean.INVALID_LOGIN,
-				loginBean.getErrorMessage());
-	}
+    /**
+     * @param result
+     *
+     */
+    private void setMockResult(LoginResult result) {
+        when(loginManager.login(email, password)).thenReturn(result);
+    }
 
-	/**
+    /**
+     * Kullanıcı eposta adresini ve parolasını girmeden
+     * * login butonuna tıklar. Sistem şu hata mesajını verir:
+     * * Lütfen eposta adresinizi ve parolanızı giriniz!
+     * * @throws Exception
+     */
+    @Test
+    public void loginUsernameAndPasswordEmpty() throws Exception {
+        loginBean.setEmail("");
+        loginBean.setPassword("");
+        assertFailLogin();
+        assertEquals(LoginBean.INVALID_LOGIN, loginBean.getErrorMessage());
+     }
+
+    /**
 	 * login başarısız olduğunda her zaman oluşacak sonuçları
 	 * test eder
 	 */
@@ -110,7 +117,7 @@ public class LoginBeanTest {
 		loginBean.setEmail("");
 		loginBean.setPassword(password);
 		assertFailLogin();
-		assertEquals(LoginBean.EMAIL_MISSING, 
+		assertEquals(LoginBean.EMAIL_MISSING,
 			loginBean.getErrorMessage());
 	}
 
@@ -145,7 +152,7 @@ public class LoginBeanTest {
 		loginBean.setPassword(password);
 	}
 
-	/**
+    /**
 	 * loginBean nesnesinin login metodunu çağrıldığı kontrol edilir
 	 */
 	private void verifiyLoginManagerMock() {
@@ -174,11 +181,6 @@ public class LoginBeanTest {
 		assertEquals(LoginBean.EMAIL_INVALID,
 			loginBean.getErrorMessage());
 		verifiyLoginManagerMock();
-	}
-
-
-	private void setMockResult(LoginResult result) {
-		when(loginManager.login(email, password)).thenReturn(result);
 	}
 
 	/**
