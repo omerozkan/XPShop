@@ -30,7 +30,8 @@ http://www.springframework.org/schema/context/spring-context-3.0.xsd">
   <context:annotation-config />
   <tx:annotation-driven
         transaction-manager="transactionManager" />
- 
+  <!-- BUSINESS BEANS -->
+  <bean id="loginManager" class="info.ozkan.test.xpshop.business.login.LoginManagerImpl" />
   <!-- DAOS -->
   <bean id="loginDao" class="info.ozkan.test.xpshop.persistence.login.LoginDaoImpl" />
 </beans>

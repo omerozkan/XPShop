@@ -1,5 +1,7 @@
 package info.ozkan.test.xpshop.business.login;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import info.ozkan.test.xpshop.persistence.login.LoginDao;
 import info.ozkan.test.xpshop.persistence.login.LoginDaoResult;
 /**
@@ -10,6 +12,7 @@ public class LoginManagerImpl implements LoginManager {
 	 * Bilgibankası sorguları için
 	 * kullanılan dao nesnesi
 	 */
+    @Autowired
 	private LoginDao loginDao;
 
 	/**
@@ -28,6 +31,7 @@ public class LoginManagerImpl implements LoginManager {
 	 * @param daoResult Persistence katmanı sonucu
 	 * @return LoginResult nesnesi
 	 */
+	
 	private LoginResult copyResult(LoginDaoResult daoResult) {
 	    LoginResult result = new LoginResult();
 	    if(daoResult.getCostumer() != null) {
