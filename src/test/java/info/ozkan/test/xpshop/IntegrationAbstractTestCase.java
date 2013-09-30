@@ -1,4 +1,4 @@
-package info.ozkan.test.xpshop.persistence;
+package info.ozkan.test.xpshop;
 
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,6 +12,6 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 @ContextConfiguration(locations = "/application-context.xml")
 @TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
     DbUnitTestExecutionListener.class })
-public abstract class DBUnitTestCase {
+public abstract class IntegrationAbstractTestCase {
 	protected static final String DATA_SET = "/dbunit-dataset.xml";
 }
