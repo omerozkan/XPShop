@@ -6,10 +6,15 @@ import info.ozkan.test.xpshop.domain.Customer;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * LoginDao implementasyonu
  */
+@Repository
 public class LoginDaoImpl implements LoginDao {
 
 	/**
@@ -24,6 +29,7 @@ public class LoginDaoImpl implements LoginDao {
 	 * @param password parola
 	 * @return LoginDaoResult nesnesi
 	 */
+	@Transactional
 	public LoginDaoResult findUser(String email, String password) {
 		LoginDaoResult result = new LoginDaoResult();
 		List<Customer> list = em
@@ -76,6 +82,7 @@ public class LoginDaoImpl implements LoginDao {
 	 * set EntityManager
 	 * @param em entityManager
 	 */
+    @PersistenceContext
 	public void setEm(EntityManager em) {
 		this.em = em;
 	}
