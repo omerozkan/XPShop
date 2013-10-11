@@ -13,12 +13,13 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
+                <version>1.6</version>
                 <dependencies>
                 </dependencies>
                 <executions>
                     <execution>
-                        <phase>pre-integration-test</phase>
+                        <id>pre-integration-test</id>
+                        <phase>test</phase>
                         <configuration>
                             <target>
                                 <property name="test_classpath"
@@ -38,11 +39,33 @@
                             <goal>run</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <phase>post-integration-test</phase>
+                        <configuration>
+                            <target>
+                                <property name="test_classpath"
+                                    refid="maven.test.classpath" />
+                                <java classname="info.ozkan.test.xpshop.HsqldbShutdowner"
+                                    fork="yes" spawn="yes">
+                                    <arg
+                                        line="127.0.0.1:9001/xpshop" />
+                                    <classpath>
+                                        <pathelement path="${test_classpath}" />
+                                    </classpath>
+                                </java>
+                                <echo>HSQLDB SERVER HAS STOPPED</echo>
+                            </target>
+                        </configuration>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                    </execution>
                 </executions>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.16</version>
                 <configuration>
                     <excludes>
                         <exclude>**/*IntegrationTest.java</exclude>
@@ -67,8 +90,6 @@
             </plugin>
         </plugins>
     </build>
-
-
     <dependencies>
         <dependency>
             <groupId>com.sun.faces</groupId>
@@ -98,11 +119,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.hsqldb</groupId>
-            <artifactId>hsqldb</artifactId>
-            <version>2.3.0</version>
-        </dependency>
-        <dependency>
             <groupId>org.hibernate.javax.persistence</groupId>
             <artifactId>hibernate-jpa-2.0-api</artifactId>
             <version>1.0.1.Final</version>
@@ -121,6 +137,7 @@
             <groupId>org.hsqldb</groupId>
             <artifactId>hsqldb</artifactId>
             <version>2.3.0</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.dbunit</groupId>
